@@ -1,0 +1,23 @@
+{%extends 'index.html' %}
+{%load static%}
+{%block head%}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{%endblock%}
+
+{%block content%}
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid d-flex navigationbar">
+        <img src="{% static 'images/logo.png' %}" class="logo" alt="logo">
+        <div class="d-flex">
+            <form action="{%url 'authentication:login' %}" method = 'POST'>
+                {% csrf_token %}
+            <button class="btn btn-outline-success me-2" type="submit">Log In</button>
+            </form>
+            <form>
+                {%csrf_token%}
+            <button class="btn btn-sm btn-outline-secondary" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</nav>
+{%endblock%}
