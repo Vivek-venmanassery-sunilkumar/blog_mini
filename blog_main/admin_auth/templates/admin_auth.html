@@ -1,0 +1,23 @@
+{%extends 'index.html' %}
+{%load static%}
+{%block head%}
+<link rel="stylesheet" href="{%static 'css/homepage_auth.css' %}">
+{%endblock%}
+
+{%block content%}
+<body style="background-color: grey;">
+    
+</body>
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid d-flex navigationbar">
+        <img src="{% static 'images/logo.png' %}" class="logo" alt="logo"> 
+        <h4 style="color: white;">Hai {{admin_user}}</h4>
+        <div class="d-flex">
+            <form action="{%url 'blog_homepage:homepage' %}" method="POST">
+                {%csrf_token%}
+                <button class="btn btn-danger" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+{%endblock%}
