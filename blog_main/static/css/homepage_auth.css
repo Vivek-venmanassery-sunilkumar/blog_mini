@@ -6,3 +6,11 @@
     background-color: black;
     margin-top: -0.5rem;
 }
+.innerdiv{
+    background: linear-gradient(to bottom, #e0e0e0, #b0b0b0); /* Greyish gradient */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 80vh;
+    width: 100%;
+}
