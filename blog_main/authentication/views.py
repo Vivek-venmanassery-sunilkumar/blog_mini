@@ -31,20 +31,26 @@ def log_in_auth(request):
         else:
             return render(request, 'login.html')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def sign_up_auth(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = User.objects.create_user(
-                username=form.cleaned_data['full_name'],
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password']
-            )
-            user.first_name = form.cleaned_data['full_name']
-            user.save()
-            return redirect('authentication:login')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = SignupForm(request.POST)
+            if form.is_valid():
+                user = User.objects.create_user(
+                    username=form.cleaned_data['full_name'],
+                    email=form.cleaned_data['email'],
+                    password=form.cleaned_data['password']
+                )
+                user.first_name = form.cleaned_data['full_name']
+                user.save()
+                return redirect('authentication:login')
+            else:
+                return render(request, 'sign_up.html', {'form':form}) 
         else:
-            return render(request, 'sign_up.html', {'form':form}) 
-    else:
-        form = SignupForm()
-        return render(request, 'sign_up.html', {'form':form})
+            form = SignupForm()
+            return render(request, 'sign_up.html', {'form':form})
+    elif request.user.is_authenticated and request.user.is_superuser:
+        return redirect('admin_auth:admin')
+    elif request.user.is_authenticated:
+        return redirect('blog_homepage:homepage_auth')
