@@ -45,7 +45,7 @@
                             <input type="hidden" name="user_id" value="{{user.id}}">
                             <button class="btn btn-danger mx-3">Delete</button>
                         </form>
-                        <form action="{%url 'admin_auth:admin' %}" method="POST">
+                        <form action="{%url 'admin_auth:edit_user' user.id %}" method="GET">
                             {%csrf_token%}
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="user_id" value="{{user.id}}">
